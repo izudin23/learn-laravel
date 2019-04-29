@@ -11,8 +11,10 @@ class CustomersController extends Controller
 
     public function index()
     {
-        $activeCustomers = Customer::where('status', '1')->get();
-        $inactiveCustomers = Customer::where('status', '0')->get();
+        // call scope in model customer
+        $activeCustomers = Customer::active()->get();
+        $inactiveCustomers = Customer::inactive()->get();
+
         return view(
             'customers.index',
             compact('activeCustomers', 'inactiveCustomers')
@@ -27,12 +29,17 @@ class CustomersController extends Controller
             'email' => 'required|email|unique:customers',
             'status' => 'required'
         ]);
+
+        // Mass assignment is when you send an array to the model creation, basically setting a bunch of fields on the model in a single go
+        //use Mass Assignment
+        Customer::create($data);
+
         // insert to table
-        $customer = new Customer();
-        $customer->name = request('name');
-        $customer->email = request('email');
-        $customer->status = request('status');
-        $customer->save();
+        // $customer = new Customer();
+        // $customer->name = request('name');
+        // $customer->email = request('email');
+        // $customer->status = request('status');
+        // $customer->save();
 
         return back();
     }
