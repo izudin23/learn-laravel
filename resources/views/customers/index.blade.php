@@ -22,10 +22,19 @@
                             {{ $errors->first('email') }}
                         </div>
                         <div class="form-group">
-                            <label for="active">Status</label>
+                            <label for="status">Status</label>
                             <select class="custom-select" name="status">
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company_id">Company</label>
+                            <select class="custom-select" name="company_id">
+                                @foreach($companies as $company)
+                                <option value="{{$company->id}}">{{$company->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -40,7 +49,7 @@
                         <div class="card-body">
                             <ul class="list-group">
                                 @foreach($activeCustomers as $activeCustomer)
-                                <li class="list-group-item">{{$activeCustomer->name}}<small class="text-muted">({{$activeCustomer->email}})</small></li>
+                                <li class="list-group-item">{{$activeCustomer->name}}<small class="text-muted">({{$activeCustomer->company->name}})</small> <small class="text-muted">({{$activeCustomer->email}})</small></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -53,7 +62,7 @@
                         <div class="card-body">
                             <ul class="list-group">
                                 @foreach($inactiveCustomers as $inactiveCustomer)
-                                <li class="list-group-item">{{$inactiveCustomer->name}}<small class="text-muted">({{$inactiveCustomer->email}})</small></li>
+                                <li class="list-group-item">{{$inactiveCustomer->name}}<small class="text-muted">({{$inactiveCustomer->company->name}})</small> <small class="text-muted">({{$activeCustomer->email}})</small></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -61,6 +70,19 @@
                 </div>
             </div>
 
+
+            <div class="row">
+                <div class="col-12">
+                    @foreach($companies as $company)
+                    <h2>{{$company->name}}</h2>
+                    <ul>
+                        @foreach($company->customers as $customer)
+                        <li>{{$customer->name}}</li>
+                        @endforeach
+                    </ul>
+                    @endforeach
+                </div>
+            </div>
 
         </div>
     </div>

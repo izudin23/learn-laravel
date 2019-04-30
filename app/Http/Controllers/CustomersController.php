@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Company;
 use App\Customer;
+use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
@@ -14,10 +15,11 @@ class CustomersController extends Controller
         // call scope in model customer
         $activeCustomers = Customer::active()->get();
         $inactiveCustomers = Customer::inactive()->get();
+        $companies = Company::all();
 
         return view(
             'customers.index',
-            compact('activeCustomers', 'inactiveCustomers')
+            compact('activeCustomers', 'inactiveCustomers', 'companies')
         );
     }
 
@@ -27,7 +29,8 @@ class CustomersController extends Controller
         $data = request()->validate([
             'name' => 'required|min:3',
             'email' => 'required|email|unique:customers',
-            'status' => 'required'
+            'status' => 'required',
+            'company_id' => 'required'
         ]);
 
         // Mass assignment is when you send an array to the model creation, basically setting a bunch of fields on the model in a single go
