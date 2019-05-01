@@ -22,4 +22,5 @@ Route::get('contact', function () {
     return view('contact');
 });
 route::get('customers', 'CustomersController@index');
+route::get('customers/create', 'CustomersController@create');
 Route::post('customers', 'CustomersController@store');

@@ -12,15 +12,20 @@ class CustomersController extends Controller
 
     public function index()
     {
+        $customers = Customer::all();
         // call scope in model customer
-        $activeCustomers = Customer::active()->get();
-        $inactiveCustomers = Customer::inactive()->get();
-        $companies = Company::all();
-
+        // $activeCustomers = Customer::active()->get();
+        // $inactiveCustomers = Customer::inactive()->get();
         return view(
             'customers.index',
-            compact('activeCustomers', 'inactiveCustomers', 'companies')
+            compact('customers')
         );
+    }
+
+    public function create()
+    {
+        $companies = Company::all();
+        return view('customers.create', compact('companies'));
     }
 
     public function store()
@@ -44,6 +49,6 @@ class CustomersController extends Controller
         // $customer->status = request('status');
         // $customer->save();
 
-        return back();
+        return redirect('customers');
     }
 }

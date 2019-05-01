@@ -17,6 +17,21 @@ class Customer extends Model
     //  [] means nothing guarded
     protected $guarded = [];
 
+    // Eloquent Accessors
+    // https://daengweb.id/accessors-dan-mutators-laravel-54
+    // Accessors & Mutators, yang kita kenal sebagai getters dan setters. Accessors digunakan untuk memanggil antribut dengan cara tertentu dan Mutators digunakan untuk menyimpan attribut dengan cara tertentu juga.
+    // getNamaFieldAttribute
+
+    public function getStatusAttribute($attribute)
+    {
+        $status = [
+            0  => 'active',
+            1 => 'Inactive'
+        ];
+
+        return $status[$attribute];
+    }
+
     // Eloquent Scopes
     public function scopeActive($query)
     {
