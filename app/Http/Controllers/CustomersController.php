@@ -60,4 +60,23 @@ class CustomersController extends Controller
         // 2) Add model Customer =>(Customer $customer) <=Route Model Binding 
         return view('customers.show', compact('customer'));
     }
+
+    public function edit(Customer $customer)
+    {
+        $companies = Company::all();
+        return view('customers.edit', compact('customer', 'companies'));
+    }
+
+    public function update(Customer $customer)
+    {
+        // validate form
+        $data = request()->validate([
+            'name' => 'required',
+            'email' => 'required'
+        ]);
+
+        $customer->update($data);
+
+        return redirect('customers/' . $customer->id);
+    }
 }

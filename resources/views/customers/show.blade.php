@@ -11,6 +11,7 @@
                     <p><strong>Name</strong> : {{$customer->name}} </p>
                     <p><strong>Email</strong> : {{$customer->email}} </p>
                     <p><strong>Company</strong> : {{$customer->company->name}} </p>
+                    <a class="btn btn-primary" href="/customers/{{$customer->id}}/edit">Edit Details</a>
                 </div>
             </div>
         </div>
