@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
-    //
-
     public function index()
     {
         $customers = Customer::all();
@@ -25,33 +23,19 @@ class CustomersController extends Controller
     public function create()
     {
         $companies = Company::all();
-        return view('customers.create', compact('companies'));
+        $customer = new Customer();
+
+        return view('customers.create', compact('companies', 'customer'));
     }
 
     public function store()
     {
-        // validate form
-        $data = request()->validate([
-            'name' => 'required|min:3',
-            'email' => 'required|email|unique:customers',
-            'status' => 'required',
-            'company_id' => 'required'
-        ]);
-
         // Mass assignment is when you send an array to the model creation, basically setting a bunch of fields on the model in a single go
         //use Mass Assignment
-        Customer::create($data);
-
-        // insert to table
-        // $customer = new Customer();
-        // $customer->name = request('name');
-        // $customer->email = request('email');
-        // $customer->status = request('status');
-        // $customer->save();
+        Customer::create($this->validateRequest());
 
         return redirect('customers');
     }
-
 
     public function show(Customer $customer)
     {
@@ -64,19 +48,31 @@ class CustomersController extends Controller
     public function edit(Customer $customer)
     {
         $companies = Company::all();
+
         return view('customers.edit', compact('customer', 'companies'));
     }
 
     public function update(Customer $customer)
     {
-        // validate form
-        $data = request()->validate([
-            'name' => 'required',
-            'email' => 'required'
-        ]);
-
-        $customer->update($data);
+        $customer->update($this->validateRequest());
 
         return redirect('customers/' . $customer->id);
+    }
+
+    public function destroy(Customer $customer)
+    {
+        $customer->delete();
+
+        return redirect('customers');
+    }
+
+    private function validateRequest()
+    {
+        return request()->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'status' => 'required',
+            'company_id' => 'required',
+        ]);
     }
 }
