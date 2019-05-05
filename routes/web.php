@@ -19,9 +19,12 @@ Route::get('about', function () {
     return view('about');
 });
 
-Route::get('contact', function () {
-    return view('contact');
-});
+Route::get('contact', 'ContactFormController@create');
+Route::post('contact', 'ContactFormController@store');
+
+// Route::get('contact', function () {
+//     return view('contact');
+// });
 // Route::get('customers', 'CustomersController@index');
 // Route::get('customers/create', 'CustomersController@create');
 // Route::post('customers', 'CustomersController@store');
@@ -29,6 +32,4 @@ Route::get('contact', function () {
 // Route::get('customers/{customer}/edit', 'CustomersController@edit');
 // Route::patch('customers/{customer}', 'CustomersController@update');
 // Route::delete('customers/{customer}', 'CustomersController@destroy');
-
-
 Route::resource('customers', 'CustomersController');
