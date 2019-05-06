@@ -34,7 +34,7 @@ class CustomersController extends Controller
         //use Mass Assignment
         Customer::create($this->validateRequest());
 
-        return redirect('customers');
+        return redirect('customers')->with('message', 'Customers Has Added');
     }
 
     public function show(Customer $customer)
@@ -56,14 +56,14 @@ class CustomersController extends Controller
     {
         $customer->update($this->validateRequest());
 
-        return redirect('customers/' . $customer->id);
+        return redirect('customers/' . $customer->id)->with('message', 'Details has Edited');
     }
 
     public function destroy(Customer $customer)
     {
         $customer->delete();
 
-        return redirect('customers');
+        return redirect('customers')->with('message', 'Customer Has Deleted');
     }
 
     private function validateRequest()

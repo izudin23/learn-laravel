@@ -1,9 +1,11 @@
 @extends('layouts.master')
-
+@section('title','Contact Us')
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-12">
+            <h1>Contact Us</h1>
+            @if(! session()->has('message'))
             <form action="/contact" method="POST">
                 @csrf
                 <div class="form-group">
@@ -26,6 +28,7 @@
 
                 <button type="submit" class="btn btn-primary">Send</button>
             </form>
+            @endif
         </div>
     </div>
 </div>
