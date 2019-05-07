@@ -17,10 +17,10 @@ Route::get('/', function () {
 });
 Route::get('about', function () {
     return view('about');
-});
+})->name('about');
 
-Route::get('contact', 'ContactFormController@create');
-Route::post('contact', 'ContactFormController@store');
+Route::get('contact', 'ContactFormController@create')->name('contact.create');
+Route::post('contact', 'ContactFormController@store')->name('contact.store');
 
 // Route::get('contact', function () {
 //     return view('contact');

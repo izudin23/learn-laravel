@@ -11,9 +11,9 @@
                 <p><strong>Name</strong> : {{$customer->name}} </p>
                 <p><strong>Email</strong> : {{$customer->email}} </p>
                 <p><strong>Company</strong> : {{$customer->company->name}} </p>
-                <a class="btn btn-primary" href="/customers/{{$customer->id}}/edit">Edit Details</a>
+                <a class="btn btn-primary" href="{{route('customers.edit',['customer'=>$customer]) }}">Edit Details</a>
                 <!-- delete data -->
-                <form action="/customers/{{$customer->id}}" method="POST">
+                <form action="{{route('customers.destroy',['customer'=>$customer]) }}" method="POST">
                     @method('DELETE')
                     @csrf
                     <button class="btn btn-danger mt-2" type="submit" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>

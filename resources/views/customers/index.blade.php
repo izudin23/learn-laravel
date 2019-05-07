@@ -4,7 +4,7 @@
 
 <div class="row mt-2">
     <div class="col-md-2">
-        <a href="/customers/create" class="btn btn-primary">Add Customer</a>
+        <a href="{{route('customers.create')}}" class="btn btn-primary">Add Customer</a>
     </div>
 </div>
 
@@ -24,7 +24,7 @@
                 <tr>
                     <td>{{$customer->id}}</td>
                     <td>
-                        <a href="/customers/{{$customer->id}}">{{$customer->name}}</a>
+                        <a href="{{route('customers.show',['customer'=>$customer]) }}">{{$customer->name}}</a>
                     </td>
                     <td>{{$customer->company->name}}</td>
                     <td>{{$customer->status}}</td>

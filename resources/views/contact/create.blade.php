@@ -6,7 +6,7 @@
     <div class="col-12">
         <h1>Contact Us</h1>
         @if(! session()->has('message'))
-        <form action="/contact" method="POST">
+        <form action="{{route('contact.store')}}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="name">Name</label>

@@ -14,13 +14,13 @@
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
+                    <a class="nav-link" href="{{route('about')}}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
+                    <a class="nav-link" href="{{route('contact.create')}}">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/customers  ">Customers List</a>
+                    <a class="nav-link" href="{{route('customers.index')}}">Customers List</a>
                 </li>
             </ul>
 
