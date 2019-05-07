@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
+    public function __construct()
+    {
+        // ->except(['index']) can view index but cannot edit delete add
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $customers = Customer::all();
