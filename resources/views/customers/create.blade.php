@@ -8,7 +8,7 @@
                 Added Customers
             </div>
             <div class="card-body">
-                <form action="{{route('customers.store',['customer'=>$customer]) }}" method="POST">
+                <form action="{{route('customers.store',['customer'=>$customer]) }}" method="POST" enctype="multipart/form-data">
                     @include('customers.form')
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

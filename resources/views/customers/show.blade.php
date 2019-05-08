@@ -19,6 +19,14 @@
                     <button class="btn btn-danger mt-2" type="submit" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                 </form>
                 <!-- delete data -->
+
+                @if($customer->image)
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <img src="{{ asset('storage/'.$customer->image) }}" alt="" class="img-thumbnail">
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

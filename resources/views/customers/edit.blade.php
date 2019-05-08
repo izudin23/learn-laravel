@@ -9,7 +9,7 @@
                 Edit Details for {{$customer->name}}
             </div>
             <div class="card-body">
-                <form action="{{route('customers.update',['customer'=>$customer]) }}" method="POST">
+                <form action="{{route('customers.update',['customer'=>$customer]) }}" method="POST" enctype="multipart/form-data">
                     @method('PATCH')
                     @include('customers.form')
                     <button type="submit" class="btn btn-primary">Edit</button>

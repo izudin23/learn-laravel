@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Customer;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+
 
 class CustomersController extends Controller
 {
@@ -38,7 +40,10 @@ class CustomersController extends Controller
     {
         // Mass assignment is when you send an array to the model creation, basically setting a bunch of fields on the model in a single go
         //use Mass Assignment
-        Customer::create($this->validateRequest());
+        $customer = Customer::create($this->validateRequest());
+
+        // storeImage
+        $this->storeImage($customer);
 
         return redirect('customers')->with('message', 'Customers Has Added');
     }
@@ -61,24 +66,44 @@ class CustomersController extends Controller
     public function update(Customer $customer)
     {
         $customer->update($this->validateRequest());
-
+        // storeImage
+        $this->storeImage($customer);
         return redirect('customers/' . $customer->id)->with('message', 'Details has Edited');
     }
 
     public function destroy(Customer $customer)
     {
         $customer->delete();
+        // delete file
+        File::delete(public_path('storage/' . $customer->image));
 
         return redirect('customers')->with('message', 'Customer Has Deleted');
     }
 
     private function validateRequest()
     {
-        return request()->validate([
+        return tap($validateData = request()->validate([
             'name' => 'required|min:3',
             'email' => 'required|email',
             'status' => 'required',
             'company_id' => 'required',
-        ]);
+        ]), function () {
+            if (request()->hasFile('image')) {
+                request()->validate([
+                    'image' => 'file|image|max:5000'
+                ]);
+            }
+        });
+    }
+
+
+    private function storeImage($customer)
+    {
+        if (request()->has('image')) {
+            $customer->update([
+                // store('uploads', 'public') = path folder upload
+                'image' => request()->image->store('uploads', 'public'),
+            ]);
+        }
     }
 }

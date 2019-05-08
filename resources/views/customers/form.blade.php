@@ -30,4 +30,10 @@
     </select>
 </div>
 
+<div class="form-group d-flex flex-column">
+    <label for="image">Company</label>
+    <input type="file" name="image" id="">
+    <div>{{ $errors->first('image') }}</div>
+</div>
+
 @csrf
