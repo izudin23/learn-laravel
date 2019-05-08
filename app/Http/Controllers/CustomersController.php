@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Customer;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 
 
@@ -82,18 +83,13 @@ class CustomersController extends Controller
 
     private function validateRequest()
     {
-        return tap($validateData = request()->validate([
+        return request()->validate([
             'name' => 'required|min:3',
             'email' => 'required|email',
             'status' => 'required',
             'company_id' => 'required',
-        ]), function () {
-            if (request()->hasFile('image')) {
-                request()->validate([
-                    'image' => 'file|image|max:5000'
-                ]);
-            }
-        });
+            'image' => 'sometimes|file|image|max:5000'
+        ]);
     }
 
 
@@ -104,6 +100,12 @@ class CustomersController extends Controller
                 // store('uploads', 'public') = path folder upload
                 'image' => request()->image->store('uploads', 'public'),
             ]);
+
+            // sizing image upload
+            // http://image.intervention.io/
+            //composer require intervention/image
+            $image = Image::make(public_path('storage/' . $customer->image))->fit(300, 300);
+            $image->save();
         }
     }
 }
