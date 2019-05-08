@@ -13,25 +13,32 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">id</th>
+                    <th scope="col">No</th>
                     <th scope="col">Name</th>
                     <th scope="col">Company</th>
                     <th scope="col">Staus</th>
                 </tr>
             </thead>
             <tbody>
+                <?php $number = 1; ?>
                 @foreach($customers as $customer)
                 <tr>
-                    <td>{{$customer->id}}</td>
+                    <td>{{$number}}</td>
                     <td>
                         <a href="{{route('customers.show',['customer'=>$customer]) }}">{{$customer->name}}</a>
                     </td>
                     <td>{{$customer->company->name}}</td>
                     <td>{{$customer->status}}</td>
                 </tr>
+                <?php $number++; ?>
                 @endforeach
             </tbody>
         </table>
+        <div class="row">
+            <div class="col-md-12 text-center d-flex justify-content-center">
+                {{ $customers->links() }}
+            </div>
+        </div>
     </div>
 </div>
 

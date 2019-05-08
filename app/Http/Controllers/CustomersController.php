@@ -19,7 +19,7 @@ class CustomersController extends Controller
 
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::with('company')->paginate(5);
         // call scope in model customer
         // $activeCustomers = Customer::active()->get();
         // $inactiveCustomers = Customer::inactive()->get();
